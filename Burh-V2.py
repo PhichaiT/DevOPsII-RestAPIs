@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, json
 
 app = Flask(__name__)
 
@@ -79,16 +79,6 @@ def update_item(c_name):
 
     else:
         return "Error", 404
-
-@app.route('/item/<name>', methods=["PATCH"])
-def patch_item(name: str):
-    item = _find_next_name(name)
-    if item is None:
-        return jsonify({'error':'items not found!'}),404
-
-    updated_item = json.loads(request.data)
-    item.update(updated_item)
-    return jsonify(items)
 
 
 if __name__ == '__main__':
